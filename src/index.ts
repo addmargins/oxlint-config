@@ -48,9 +48,7 @@ const config: OxlintConfig = {
     // Put `env` in an override so configs that extend this one keep it.
     { files: allFiles, env },
     // Drop nkzw's overrides for paths in its own repo, like `server/src/index.tsx`.
-    ...nkzwOverrides
-      .filter(({ files }) => files.every((glob) => glob.startsWith("**/")))
-      .map((override) => ({ ...override, rules: normalizeRules(override.rules) })),
+    ...nkzwOverrides.filter(({ files }) => files.every((glob) => glob.startsWith("**/"))),
     // ESLint built-ins replaced by their `typescript/` versions (`no-throw-literal` by `only-throw-error`).
     {
       files: typeScriptFiles,
