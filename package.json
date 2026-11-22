@@ -1,16 +1,20 @@
 {
   "name": "@addmargins/oxlint-config",
-  "version": "0.0.0",
-  "description": "A starter for creating a TypeScript package.",
-  "homepage": "https://github.com/author/library#readme",
+  "version": "0.1.0",
+  "description": "Oxlint preset that keeps agent-written code reviewable.",
+  "keywords": [
+    "config",
+    "javascript",
+    "oxlint",
+    "typescript"
+  ],
   "bugs": {
-    "url": "https://github.com/author/library/issues"
+    "url": "https://github.com/addmargins/oxlint-config/issues"
   },
   "license": "MIT",
-  "author": "Author Name <author.name@mail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/author/library.git"
+    "url": "git+https://github.com/addmargins/oxlint-config.git"
   },
   "files": [
     "dist"
@@ -31,10 +35,19 @@
     "prepublishOnly": "vp run build",
     "prepare": "vp config"
   },
+  "dependencies": {
+    "@nkzw/oxlint-config": "3.0.1"
+  },
   "devDependencies": {
     "@types/node": "^26.6.5",
+    "oxlint": "^1.94.0",
+    "tsrs": "7.1.0-beta.tsrs2",
     "typescript": "^7.0.2",
     "vite-plus": "catalog:"
+  },
+  "peerDependencies": {
+    "oxlint": ">=1.94.0",
+    "tsrs": ">=0.25.0-ts7.1.0-beta || ^7.1.0-beta.tsrs2"
   },
   "devEngines": {
     "packageManager": {
