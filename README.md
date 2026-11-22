@@ -8,7 +8,7 @@ Warnings get ignored. Every rule is an error: fix it or disable it inline.
 
 ## Usage
 
-Requires Oxlint 1.94+ and its type-aware backend, `tsrs`.
+Requires Node 24+, Oxlint 1.94+, and `tsrs` (Oxlint's type-aware backend).
 
 ```sh
 pnpm add -D @addmargins/oxlint-config oxlint tsrs
