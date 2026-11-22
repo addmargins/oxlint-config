@@ -17,10 +17,14 @@ export default defineConfig({
     exports: true,
   },
   lint: {
+    ignorePatterns: ["tests/fixtures/**"],
     options: {
       typeAware: true,
       typeCheck: true,
     },
   },
   fmt: {},
+  test: {
+    dir: "tests",
+  },
 });

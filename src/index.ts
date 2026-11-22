@@ -31,8 +31,7 @@ const missingRecommendedRules = {
 const setAll = (names: Array<string>, value: "error" | "off"): DummyRuleMap =>
   Object.fromEntries(names.map((name) => [name, value]));
 
-// nkzw uses `@typescript-eslint/x`; Oxlint treats it as `typescript/x`.
-// Rename to `typescript/` so our settings override nkzw's instead of competing with them.
+// Oxlint reads `@typescript-eslint/x` as `typescript/x`; rename so our settings replace nkzw's.
 const normalizeRules = (rules: DummyRuleMap = {}): DummyRuleMap =>
   Object.fromEntries(
     Object.entries(rules).map(([name, value]) => [
@@ -52,13 +51,11 @@ const config: OxlintConfig = {
     ...nkzwOverrides
       .filter(({ files }) => files.every((glob) => glob.startsWith("**/")))
       .map((override) => ({ ...override, rules: normalizeRules(override.rules) })),
-    // Turn off ESLint built-ins in TypeScript so their `typescript/` versions don't report twice.
-    // `no-throw-literal` is replaced by `only-throw-error`.
+    // ESLint built-ins replaced by their `typescript/` versions (`no-throw-literal` by `only-throw-error`).
     {
       files: typeScriptFiles,
       rules: setAll(["no-implied-eval", "no-throw-literal", "prefer-promise-reject-errors"], "off"),
     },
-    // Turn off our type-aware rules in JavaScript, like typescript-eslint's `disable-type-checked`.
     {
       files: javaScriptFiles,
       rules: setAll(missingRecommendedRules.typeAware, "off"),

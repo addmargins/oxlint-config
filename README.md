@@ -33,13 +33,14 @@ Everything in [@nkzw/oxlint-config](https://github.com/nkzw-tech/oxlint-config):
 
 ## Rules
 
-Added on top of nkzw. All `error`. Type-aware rules run on TypeScript only.
+Added on top of nkzw. All `error`.
 
 | Rule                                                                                                                                               | Why                                                                   |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | `typescript/no-unsafe-*` (`argument`, `assignment`, `call`, `member-access`, `return`, `enum-comparison`)                                          | No `any` leaking through.                                             |
 | `typescript/no-base-to-string`, `restrict-plus-operands`, `restrict-template-expressions`                                                          | No `[object Object]` in strings.                                      |
-| `typescript/await-thenable`, `require-await`, `no-misused-promises`                                                                                | Correct async. Async JSX handlers allowed.                            |
+| `typescript/require-await`                                                                                                                         | No `async` without `await`.                                           |
+| `typescript/await-thenable`, `no-misused-promises`                                                                                                 | No mixed promise arrays. Async JSX handlers allowed.                  |
 | `typescript/only-throw-error`, `prefer-promise-reject-errors`                                                                                      | Throw and reject `Error`s only.                                       |
 | `typescript/no-implied-eval`, `no-namespace`, `no-this-alias`, `no-redundant-type-constituents`, `no-unnecessary-type-assertion`, `unbound-method` | Rest of typescript-eslint `recommended-type-checked` that nkzw skips. |
 | `no-unused-vars`                                                                                                                                   | Prefix `_` to keep. `--fix` removes unused imports.                   |
