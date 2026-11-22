@@ -1,3 +1,14 @@
+# Snapshot Test
+
+`tests/__snapshots__/preset.test.ts.snap` records the config Oxlint resolves from this preset. It should change only when `@nkzw/oxlint-config` or `oxlint` is upgraded.
+
+Read the diff before running `vp test -u`, and check that:
+
+- Our rules and options still win over nkzw's.
+- TypeScript and JavaScript overrides stay separate.
+
+If either fails, fix `src/index.ts` or stop and report. Running `-u` without review accepts every change.
+
 <!--VITE PLUS START-->
 
 # Using Vite+, the Unified Toolchain for the Web
