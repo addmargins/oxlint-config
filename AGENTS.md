@@ -9,6 +9,30 @@ Read the diff before running `vp test -u`, and check that:
 
 If either fails, fix `src/index.ts` or stop and report. Running `-u` without review accepts every change.
 
+# Dependency PR Titles
+
+The PR title sets the release version. Pick by what the snapshot diff does to users. Highest row wins.
+
+| Snapshot diff                                                      | Title                                 |
+| ------------------------------------------------------------------ | ------------------------------------- |
+| None                                                               | `fix(deps):`                          |
+| Nothing users see                                                  | `fix(deps):` + label `snapshot-patch` |
+| Fewer errors (rule off, option relaxed)                            | `feat(deps):`                         |
+| More errors (rule on, option tightened), renamed rule, raised peer | `feat(deps)!:`                        |
+
+- Name the changed rules in the title.
+- oxlint-only bumps (`chore(deps-dev):`) release nothing. Keep the title.
+- On an nkzw bump, also diff `node_modules/@nkzw/oxlint-config/quality/`. Stricter rule code is `feat(deps)!:`.
+- nkzw needs a newer oxlint: merge the oxlint PR first, `@dependabot rebase` the nkzw PR, raise `peerDependencies.oxlint`.
+- Never add `Release-As:`.
+- Wrong title already merged: add this to that PR's body and rerun release-please.
+
+  ```
+  BEGIN_COMMIT_OVERRIDE
+  feat(deps)!: <subject>
+  END_COMMIT_OVERRIDE
+  ```
+
 <!--VITE PLUS START-->
 
 # Using Vite+, the Unified Toolchain for the Web

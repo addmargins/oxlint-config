@@ -1,0 +1,30 @@
+name: Snapshot semver
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened, labeled, unlabeled]
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot-semver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+
+      - name: Snapshot changes need a feat, breaking, or chore(deps-dev) title
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+          PATCH_OK: ${{ contains(github.event.pull_request.labels.*.name, 'snapshot-patch') }}
+        run: |
+          if git diff --quiet HEAD^1 HEAD -- tests/__snapshots__/; then exit 0; fi
+          if [[ "$PATCH_OK" == true ]]; then exit 0; fi
+          allowed='^(feat(\([^)]*\))?!?|[a-z]+(\([^)]*\))?!|chore\(deps-dev\)):'
+          if [[ "$TITLE" =~ $allowed ]]; then exit 0; fi
+          echo "::error::Snapshot changed: title must be feat, breaking (!), or chore(deps-dev). See \"Dependency PR Titles\" in AGENTS.md."
+          exit 1
