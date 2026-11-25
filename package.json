@@ -36,7 +36,8 @@
     "prepare": "vp config"
   },
   "dependencies": {
-    "@nkzw/oxlint-config": "3.0.1"
+    "@nkzw/oxlint-config": "3.0.1",
+    "oxlint-plugin-directive-comments": "0.1.0"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",

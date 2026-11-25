@@ -24,6 +24,7 @@ The PR title sets the release version. Pick by what the snapshot diff does to us
 - oxlint-only bumps (`chore(deps-dev):`) release nothing. Keep the title.
 - On an nkzw bump, also diff `node_modules/@nkzw/oxlint-config/quality/`. Stricter rule code is `feat(deps)!:`.
 - nkzw needs a newer oxlint: merge the oxlint PR first, `@dependabot rebase` the nkzw PR, raise `peerDependencies.oxlint`.
+- On an `oxlint-plugin-directive-comments` bump, read the `require-description` diff. Stricter rule code is `feat(deps)!:`.
 - Never add `Release-As:`.
 - Wrong title already merged: add this to that PR's body and rerun release-please.
 

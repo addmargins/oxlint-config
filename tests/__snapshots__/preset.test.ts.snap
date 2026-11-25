@@ -127,6 +127,20 @@ exports[`resolved config 1`] = `
     ],
     "constructor-super": "deny",
     "curly": "deny",
+    "directive-comments/require-description": [
+      "deny",
+      {
+        "ignore": [
+          "eslint-enable",
+          "oxlint-enable",
+          "eslint",
+          "eslint-env",
+          "exported",
+          "global",
+          "globals",
+        ],
+      },
+    ],
     "eqeqeq": [
       "deny",
       "always",

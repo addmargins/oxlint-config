@@ -40,10 +40,23 @@ const normalizeRules = (rules: DummyRuleMap = {}): DummyRuleMap =>
     ]),
   );
 
-const { env, overrides: nkzwOverrides = [], rules: nkzwRules, ...nkzwBase } = nkzw;
+const {
+  env,
+  jsPlugins: nkzwJsPlugins,
+  overrides: nkzwOverrides = [],
+  rules: nkzwRules,
+  ...nkzwBase
+} = nkzw;
 
 const config: OxlintConfig = {
   ...nkzwBase,
+  jsPlugins: [
+    ...(nkzwJsPlugins ?? []),
+    {
+      name: "directive-comments",
+      specifier: import.meta.resolve("oxlint-plugin-directive-comments"),
+    },
+  ],
   overrides: [
     // Put `env` in an override so configs that extend this one keep it.
     { files: allFiles, env },
@@ -78,6 +91,21 @@ const config: OxlintConfig = {
     ],
     // `attributes: false` allows async JSX handlers.
     "typescript/no-misused-promises": ["error", { checksVoidReturn: { attributes: false } }],
+    // Only disable comments suppress anything; `enable` ends a suppression and Oxlint ignores the ESLint config comments.
+    "directive-comments/require-description": [
+      "error",
+      {
+        ignore: [
+          "eslint-enable",
+          "oxlint-enable",
+          "eslint",
+          "eslint-env",
+          "exported",
+          "global",
+          "globals",
+        ],
+      },
+    ],
     complexity: ["error", { max: 13 }],
     "max-depth": ["error", { max: 3 }],
   },

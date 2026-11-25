@@ -4,7 +4,7 @@ Oxlint preset that keeps agent-written code reviewable. Builds on [@nkzw/oxlint-
 
 ## Error, never warn
 
-Warnings get ignored. Every rule is an error: fix it or disable it inline.
+Warnings get ignored. Every rule is an error: fix it or disable it inline with a reason, e.g. `// oxlint-disable-next-line max-depth -- <reason>`.
 
 ## Usage
 
@@ -47,3 +47,4 @@ Added on top of nkzw. All `error`.
 | `import/no-cycle`                                                                                                                                  | No circular imports.                                                  |
 | `complexity`                                                                                                                                       | **Max 13** per function.                                              |
 | `max-depth`                                                                                                                                        | **Max 3** nested blocks.                                              |
+| `directive-comments/require-description`                                                                                                           | Every `oxlint-disable` / `eslint-disable` comment needs `-- reason`.  |

@@ -12,12 +12,15 @@ const oxlintBin = join(
 // `vp test` sets VP_VERSION, which makes Oxlint read `vite.config.ts` instead of `-c`.
 const { VP_VERSION: _vpVersion, ...env } = process.env;
 
+const runOxlint = (...args: Array<string>) =>
+  spawnSync(process.execPath, [oxlintBin, "-c", "preset.config.ts", ...args], {
+    cwd: fileURLToPath(new URL("fixtures/", import.meta.url)),
+    encoding: "utf8",
+    env,
+  });
+
 test("resolved config", () => {
-  const { stderr, stdout } = spawnSync(
-    process.execPath,
-    [oxlintBin, "-c", "preset.config.ts", "--print-config"],
-    { cwd: fileURLToPath(new URL("fixtures/", import.meta.url)), encoding: "utf8", env },
-  );
+  const { stderr, stdout } = runOxlint("--print-config");
   expect(stderr).toBe("");
   expect(stdout).not.toContain('"warn"');
 
@@ -30,4 +33,18 @@ test("resolved config", () => {
     ...config
   } = JSON.parse(stdout) as Record<string, unknown>;
   expect(config).toMatchSnapshot();
+});
+
+test("directive-comments/require-description reports bare disable comments only", () => {
+  const { stderr, stdout } = runOxlint("-f", "json", "directives.ts");
+  expect(stderr).toBe("");
+
+  const { diagnostics } = JSON.parse(stdout) as {
+    diagnostics: Array<{ code: string; labels: Array<{ span: { line: number } }> }>;
+  };
+  const lines = diagnostics
+    .filter(({ code }) => code === "directive-comments(require-description)")
+    .flatMap(({ labels }) => labels.map(({ span }) => span.line));
+  // Bare `oxlint-disable-next-line`, `eslint-disable-next-line`, block `oxlint-disable` and `oxlint-disable-line`. Not `-- reason` or `enable`.
+  expect(lines.toSorted((a, b) => a - b)).toEqual([1, 5, 7, 10]);
 });
