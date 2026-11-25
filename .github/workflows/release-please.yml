@@ -62,7 +62,7 @@ jobs:
           name: package
           path: package.tgz
           if-no-files-found: error
-          retention-days: 1
+          retention-days: 7
 
   publish:
     needs: build
