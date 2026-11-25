@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/addmargins/oxlint-config/issues"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/addmargins/oxlint-config.git"

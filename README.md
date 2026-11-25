@@ -44,5 +44,6 @@ Added on top of nkzw. All `error`.
 | `typescript/only-throw-error`, `prefer-promise-reject-errors`                                                                                      | Throw and reject `Error`s only.                                       |
 | `typescript/no-implied-eval`, `no-namespace`, `no-this-alias`, `no-redundant-type-constituents`, `no-unnecessary-type-assertion`, `unbound-method` | Rest of typescript-eslint `recommended-type-checked` that nkzw skips. |
 | `no-unused-vars`                                                                                                                                   | Prefix `_` to keep. `--fix` removes unused imports.                   |
+| `import/no-cycle`                                                                                                                                  | No circular imports.                                                  |
 | `complexity`                                                                                                                                       | **Max 13** per function.                                              |
 | `max-depth`                                                                                                                                        | **Max 3** nested blocks.                                              |
