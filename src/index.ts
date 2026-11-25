@@ -66,6 +66,7 @@ const config: OxlintConfig = {
       "error",
     ),
     "typescript/await-thenable": "error",
+    "import/no-cycle": "error",
     "no-unused-vars": [
       "error",
       {

@@ -137,6 +137,7 @@ exports[`resolved config 1`] = `
     "for-direction": "deny",
     "getter-return": "deny",
     "import/export": "deny",
+    "import/no-cycle": "deny",
     "import/no-namespace": "deny",
     "jsx_a11y/alt-text": "deny",
     "max-depth": [
